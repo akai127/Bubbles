@@ -1,0 +1,217 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Bubbles &amp; Sun — Brand Assets (Facebook cover, logo, icon)</title>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@600;700;800&family=DM+Sans:opsz,wght@9..40,500;9..40,700&display=swap" rel="stylesheet" />
+<style>
+  :root{--aqua:#4FC3D9;--lagoon:#0E6E8C;--gold:#FFB627;--coral:#FF7A59;--pink:#FF2E97;--cloud:#FBFAF6;--ink:#163B45}
+  *{box-sizing:border-box;margin:0;padding:0}
+  body{font-family:"DM Sans",system-ui,sans-serif;background:#eef3f4;color:var(--ink);line-height:1.55;padding:2rem 1rem 4rem}
+  .wrap{width:min(900px,94vw);margin-inline:auto}
+  h1{font-family:"Baloo 2";font-size:2rem;color:var(--lagoon);margin-bottom:.2rem}
+  .lede{color:#4a6b73;margin-bottom:2rem}
+  .asset{background:#fff;border:1px solid rgba(22,59,69,.12);border-radius:18px;padding:1.4rem;margin-bottom:1.6rem;box-shadow:0 14px 34px -24px rgba(14,110,140,.6)}
+  .asset h2{font-family:"Baloo 2";color:var(--lagoon);font-size:1.25rem}
+  .asset .dim{color:#7089;font-size:.9rem;color:#5b7a82;margin-bottom:.9rem}
+  canvas{max-width:100%;height:auto;display:block;border-radius:12px;border:1px solid rgba(22,59,69,.1);background:#f4f7f8}
+  .row{display:flex;gap:.7rem;flex-wrap:wrap;margin-top:1rem;align-items:center}
+  button{font-family:"DM Sans";font-weight:700;font-size:.95rem;border:0;cursor:pointer;padding:.7rem 1.2rem;border-radius:999px;background:var(--pink);color:#fff;box-shadow:0 10px 22px -12px rgba(255,46,151,.9);transition:transform .15s}
+  button:hover{transform:translateY(-2px)}
+  button.alt{background:var(--lagoon);box-shadow:0 10px 22px -12px rgba(14,110,140,.9)}
+  .how{background:#fff;border-radius:18px;padding:1.4rem 1.6rem;border:1px dashed rgba(22,59,69,.25)}
+  .how h2{font-family:"Baloo 2";color:var(--lagoon);margin-bottom:.5rem}
+  .how ol{margin-left:1.1rem}
+  .how li{margin:.35rem 0}
+  code{background:#eef3f4;padding:.1rem .4rem;border-radius:6px;font-size:.9em}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <h1>Bubbles &amp; Sun — Brand Assets</h1>
+  <p class="lede">Pink bubble + orange sun, the way it started. Click <b>Download</b> under each one to save a sharp PNG. Sizes are already set for Facebook.</p>
+
+  <div class="asset">
+    <h2>Facebook / social cover</h2>
+    <div class="dim">1640 × 624 px — fits Facebook &amp; Google cover. Key text is centered so phones don't crop it.</div>
+    <canvas id="cover" width="1640" height="624"></canvas>
+    <div class="row"><button data-c="cover" data-name="bubbles-and-sun-cover.png">⬇ Download cover</button></div>
+  </div>
+
+  <div class="asset">
+    <h2>Profile picture / logo badge</h2>
+    <div class="dim">1024 × 1024 px — Facebook &amp; Google profile photo (shows as a circle).</div>
+    <canvas id="profile" width="1024" height="1024" style="max-width:420px;margin-inline:auto"></canvas>
+    <div class="row"><button data-c="profile" data-name="bubbles-and-sun-logo.png">⬇ Download logo</button></div>
+  </div>
+
+  <div class="asset">
+    <h2>Icon mark only (transparent)</h2>
+    <div class="dim">512 × 512 px, transparent background — for the website favicon, stamps, stickers, anywhere.</div>
+    <canvas id="icon" width="512" height="512" style="max-width:240px;margin-inline:auto;background:repeating-conic-gradient(#e9eef0 0% 25%, #fff 0% 50%) 50%/24px 24px"></canvas>
+    <div class="row"><button data-c="icon" data-name="bubbles-and-sun-icon.png" class="alt">⬇ Download icon</button></div>
+  </div>
+
+  <div class="how">
+    <h2>How to use these</h2>
+    <ol>
+      <li><b>Facebook cover:</b> Page → camera icon on the cover → <i>Edit cover photo</i> → Upload → pick <code>bubbles-and-sun-cover.png</code>.</li>
+      <li><b>Facebook profile pic:</b> camera icon on the round profile photo → Upload → <code>bubbles-and-sun-logo.png</code>.</li>
+      <li>Do the same two uploads on the <b>Google Business Profile</b> (logo + cover) once it's claimed.</li>
+      <li>Want different wording or a tweak to the colors/layout? Tell me and I'll regenerate.</li>
+    </ol>
+  </div>
+</div>
+
+<script>
+const C={aqua:'#4FC3D9',lagoon:'#0E6E8C',gold:'#FFB627',coral:'#FF7A59',pink:'#FF2E97',cloud:'#FBFAF6',ink:'#163B45'};
+
+/* ---------- reusable artwork ---------- */
+function sun(ctx,cx,cy,r){
+  ctx.save();ctx.translate(cx,cy);
+  const rays=12;
+  for(let i=0;i<rays;i++){
+    ctx.rotate((Math.PI*2)/rays);
+    const g=ctx.createLinearGradient(0,-r*1.12,0,-r*1.82);
+    g.addColorStop(0,'#FFC44D');g.addColorStop(1,'rgba(255,138,61,0)');
+    ctx.fillStyle=g;
+    ctx.beginPath();
+    ctx.moveTo(-r*0.11,-r*1.10);ctx.lineTo(r*0.11,-r*1.10);ctx.lineTo(0,-r*1.82);
+    ctx.closePath();ctx.fill();
+  }
+  ctx.restore();
+  const bg=ctx.createRadialGradient(cx-r*0.32,cy-r*0.32,r*0.1,cx,cy,r);
+  bg.addColorStop(0,'#FFE7B0');bg.addColorStop(0.55,'#FFB627');bg.addColorStop(1,'#FF8A3D');
+  ctx.fillStyle=bg;
+  ctx.beginPath();ctx.arc(cx,cy,r,0,Math.PI*2);ctx.fill();
+}
+function bubble(ctx,cx,cy,r,rgb,alpha){
+  alpha=alpha||1;
+  const g=ctx.createRadialGradient(cx-r*0.35,cy-r*0.35,r*0.08,cx,cy,r);
+  g.addColorStop(0,'rgba(255,255,255,'+(0.95*alpha)+')');
+  g.addColorStop(0.28,'rgba('+rgb+','+(0.5*alpha)+')');
+  g.addColorStop(0.85,'rgba('+rgb+','+(0.82*alpha)+')');
+  g.addColorStop(1,'rgba('+rgb+','+(0.32*alpha)+')');
+  ctx.fillStyle=g;
+  ctx.beginPath();ctx.arc(cx,cy,r,0,Math.PI*2);ctx.fill();
+  ctx.lineWidth=Math.max(1,r*0.045);ctx.strokeStyle='rgba(255,255,255,'+(0.6*alpha)+')';ctx.stroke();
+  ctx.fillStyle='rgba(255,255,255,'+(0.85*alpha)+')';
+  ctx.beginPath();ctx.ellipse(cx-r*0.34,cy-r*0.4,r*0.22,r*0.12,-0.6,0,Math.PI*2);ctx.fill();
+}
+/* the combined sun + pink-bubble mark, sized by S (overall radius) */
+function mark(ctx,cx,cy,S){
+  bubble(ctx,cx+S*0.55,cy+S*0.62,S*0.34,'255,255,255',0.9); // tiny clear bubble drifting
+  sun(ctx,cx-S*0.16,cy-S*0.12,S*0.62);
+  bubble(ctx,cx+S*0.40,cy+S*0.30,S*0.50,'255,46,151',1);    // the heritage pink bubble, front
+  bubble(ctx,cx-S*0.62,cy+S*0.50,S*0.18,'255,46,151',0.9);  // little pink bubble
+}
+function text(ctx,str,x,y,font,color,align,shadow){
+  ctx.font=font;ctx.fillStyle=color;ctx.textAlign=align||'center';ctx.textBaseline='middle';
+  if(shadow){ctx.shadowColor=shadow;ctx.shadowBlur=18;ctx.shadowOffsetY=3;}
+  ctx.fillText(str,x,y);
+  ctx.shadowColor='transparent';ctx.shadowBlur=0;ctx.shadowOffsetY=0;
+}
+/* wordmark "Bubbles & Sun" with a pink ampersand, drawn centered at (cx,y) */
+function wordmark(ctx,cx,y,size,main,ampColor,shadow){
+  ctx.font='800 '+size+'px "Baloo 2"';ctx.textBaseline='middle';
+  const a='Bubbles ', b='&', c=' Sun';
+  const wa=ctx.measureText(a).width, wb=ctx.measureText(b).width, wc=ctx.measureText(c).width;
+  const total=wa+wb+wc; let x=cx-total/2;
+  ctx.textAlign='left';
+  if(shadow){ctx.shadowColor=shadow;ctx.shadowBlur=22;ctx.shadowOffsetY=4;}
+  ctx.fillStyle=main; ctx.fillText(a,x,y); x+=wa;
+  ctx.fillStyle=ampColor; ctx.fillText(b,x,y); x+=wb;
+  ctx.fillStyle=main; ctx.fillText(c,x,y);
+  ctx.shadowColor='transparent';ctx.shadowBlur=0;ctx.shadowOffsetY=0;
+}
+function scatter(ctx,w,h){
+  const pts=[[w*0.12,h*0.78,26],[w*0.88,h*0.72,34],[w*0.2,h*0.2,18],[w*0.8,h*0.24,22],[w*0.5,h*0.86,16],[w*0.06,h*0.45,14]];
+  pts.forEach(p=>bubble(ctx,p[0],p[1],p[2],'255,255,255',0.75));
+  bubble(ctx,w*0.93,h*0.5,20,'255,46,151',0.7);
+  bubble(ctx,w*0.04,h*0.62,16,'255,46,151',0.7);
+}
+
+/* ---------- COVER 1640x624 ---------- */
+function drawCover(){
+  const cv=document.getElementById('cover'),ctx=cv.getContext('2d'),w=1640,h=624;
+  const bg=ctx.createLinearGradient(0,0,w*0.6,h);
+  bg.addColorStop(0,C.lagoon);bg.addColorStop(0.45,C.aqua);bg.addColorStop(0.82,'#ffd27a');bg.addColorStop(1,C.gold);
+  ctx.fillStyle=bg;ctx.fillRect(0,0,w,h);
+  // glows
+  let s=ctx.createRadialGradient(w*0.5,-60,40,w*0.5,-60,360);
+  s.addColorStop(0,'rgba(255,255,255,0.55)');s.addColorStop(1,'rgba(255,255,255,0)');
+  ctx.fillStyle=s;ctx.fillRect(0,0,w,h);
+  let p=ctx.createRadialGradient(w*0.12,h+40,30,w*0.12,h+40,420);
+  p.addColorStop(0,'rgba(255,46,151,0.45)');p.addColorStop(1,'rgba(255,46,151,0)');
+  ctx.fillStyle=p;ctx.fillRect(0,0,w,h);
+  scatter(ctx,w,h);
+  // centered lockup
+  mark(ctx,w/2,118,86);
+  wordmark(ctx,w/2,278,118,'#ffffff',C.pink,'rgba(14,110,140,0.45)');
+  text(ctx,'Laundromat  ·  Tanning Salon',w/2,372,'700 40px "DM Sans"','rgba(255,255,255,0.97)','center','rgba(14,110,140,0.35)');
+  text(ctx,'279 Main St, Hudson Falls NY   ·   (518) 747-7779   ·   Open 7 Days',w/2,440,'500 30px "DM Sans"','rgba(255,255,255,0.96)','center','rgba(14,110,140,0.3)');
+  // pink landmark pill
+  ctx.font='700 28px "DM Sans"';
+  const pill='Look for the big hot-pink building 🩷';
+  const pw=ctx.measureText(pill).width+64, px=w/2-pw/2, py=498, ph=58;
+  ctx.fillStyle=C.pink;roundRect(ctx,px,py,pw,ph,29);ctx.fill();
+  text(ctx,pill,w/2,py+ph/2+1,'700 28px "DM Sans"','#ffffff','center');
+}
+
+/* ---------- PROFILE 1024 ---------- */
+function drawProfile(){
+  const cv=document.getElementById('profile'),ctx=cv.getContext('2d'),w=1024,cx=512,cy=512;
+  // ring
+  const ring=ctx.createLinearGradient(0,0,w,w);
+  ring.addColorStop(0,C.pink);ring.addColorStop(0.5,C.coral);ring.addColorStop(1,C.gold);
+  ctx.fillStyle=ring;ctx.beginPath();ctx.arc(cx,cy,508,0,Math.PI*2);ctx.fill();
+  // inner disc
+  const disc=ctx.createRadialGradient(cx-120,cy-160,80,cx,cy,470);
+  disc.addColorStop(0,'#ffffff');disc.addColorStop(0.7,'#eaf7fb');disc.addColorStop(1,'#d6eef6');
+  ctx.fillStyle=disc;ctx.beginPath();ctx.arc(cx,cy,452,0,Math.PI*2);ctx.fill();
+  // faint bubbles inside
+  bubble(ctx,cx-300,cy+250,40,'255,46,151',0.5);
+  bubble(ctx,cx+310,cy+210,52,'79,195,217',0.5);
+  bubble(ctx,cx+330,cy-260,30,'255,182,39',0.6);
+  // mark + text
+  mark(ctx,cx,cy-150,150);
+  wordmark(ctx,cx,cy+170,118,C.lagoon,C.pink,null);
+  text(ctx,'LAUNDRY  ·  TANNING',cx,cy+268,'700 46px "DM Sans"',C.coral,'center');
+  text(ctx,'HUDSON FALLS, NY',cx,cy+330,'500 38px "DM Sans"','#5b7a82','center');
+}
+
+/* ---------- ICON 512 transparent ---------- */
+function drawIcon(){
+  const cv=document.getElementById('icon'),ctx=cv.getContext('2d');
+  ctx.clearRect(0,0,512,512);
+  mark(ctx,256,236,150);
+}
+
+function roundRect(ctx,x,y,w,h,r){ctx.beginPath();ctx.moveTo(x+r,y);ctx.arcTo(x+w,y,x+w,y+h,r);ctx.arcTo(x+w,y+h,x,y+h,r);ctx.arcTo(x,y+h,x,y,r);ctx.arcTo(x,y,x+w,y,r);ctx.closePath();}
+
+async function init(){
+  try{
+    await document.fonts.load('800 118px "Baloo 2"');
+    await document.fonts.load('700 40px "DM Sans"');
+    await document.fonts.load('500 30px "DM Sans"');
+    await document.fonts.ready;
+  }catch(e){}
+  drawCover();drawProfile();drawIcon();
+}
+document.querySelectorAll('button[data-c]').forEach(b=>{
+  b.addEventListener('click',()=>{
+    const cv=document.getElementById(b.dataset.c);
+    cv.toBlob(blob=>{
+      const a=document.createElement('a');a.href=URL.createObjectURL(blob);a.download=b.dataset.name;
+      document.body.appendChild(a);a.click();a.remove();
+      setTimeout(()=>URL.revokeObjectURL(a.href),2000);
+    },'image/png');
+  });
+});
+init();
+</script>
+</body>
+</html>
