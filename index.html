@@ -38,6 +38,7 @@
     "addressCountry": "US"
   },
   "telephone": "+1-518-747-7779",
+  "priceRange": "$",
   "openingHoursSpecification": [
     {"@type":"OpeningHoursSpecification","dayOfWeek":["Monday","Tuesday","Wednesday","Thursday","Friday"],"opens":"07:00","closes":"19:00"},
     {"@type":"OpeningHoursSpecification","dayOfWeek":"Saturday","opens":"07:00","closes":"14:00"},
@@ -188,15 +189,21 @@
   .card li{display:flex;gap:.6rem;align-items:flex-start;font-weight:500;font-size:1rem}
   .card li::before{content:"";flex:none;width:.7rem;height:.7rem;margin-top:.45rem;border-radius:50%;background:currentColor;opacity:.5}
 
-  /* specials strip */
-  .specials{background:linear-gradient(120deg,var(--pink) 0%,var(--coral) 52%,var(--gold) 100%);color:#fff}
-  .specials .wrap{display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:1.5rem}
-  .specials h2{font-size:clamp(1.6rem,4vw,2.4rem);font-weight:700;max-width:18ch;text-shadow:0 2px 18px rgba(0,0,0,.12)}
-  .deal-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:.9rem;flex:1;min-width:min(100%,320px)}
-  @media(max-width:560px){.deal-grid{grid-template-columns:1fr}}
-  .deal{background:rgba(255,255,255,.18);border:1px solid rgba(255,255,255,.35);border-radius:16px;padding:1rem 1.15rem;backdrop-filter:blur(3px)}
-  .deal .big{font-family:"Baloo 2";font-weight:800;font-size:1.55rem;display:block;line-height:1.1}
-  .deal small{opacity:.92}
+  /* tanning price list */
+  .price-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:1.4rem}
+  @media(max-width:900px){.price-grid{grid-template-columns:1fr}}
+  .price-card h3{font-size:1.35rem;font-weight:700;color:var(--lagoon);margin-bottom:.15rem}
+  .price-card .pkg-sub{color:var(--ink-soft);font-weight:500;font-size:.95rem;margin-bottom:1rem;min-height:2.9em}
+  .price-row{display:flex;justify-content:space-between;align-items:baseline;gap:1rem;padding:.55rem 0;border-bottom:1px dashed var(--line);font-weight:500}
+  .price-row:last-child{border-bottom:0}
+  .price-row b{font-family:"Baloo 2";font-size:1.15rem;color:var(--lagoon);white-space:nowrap}
+  .price-card.sunny{background:linear-gradient(160deg,#fff3dc,#ffe3b3);border:0}
+  .price-card.sunny h3{color:#7a4d00}
+  .price-card.sunny .pkg-sub{color:#7a4d00;opacity:.8}
+  .price-card.sunny .price-row{border-bottom-color:rgba(122,77,0,.2)}
+  .price-card.sunny .price-row b{color:#7a4d00}
+  .fine-print{margin-top:1.4rem;color:var(--ink-soft);font-size:.88rem;max-width:72ch}
+  .fine-print a{color:var(--lagoon);font-weight:600}
 
   /* hours + location */
   .info{display:grid;grid-template-columns:.85fr 1.15fr;gap:1.4rem}
@@ -249,7 +256,7 @@
     <a class="brand" href="#top"><span class="dot" aria-hidden="true"></span>Bubbles <b>&amp;</b> Sun</a>
     <div class="nav-links">
       <a href="#services">Services</a>
-      <a href="#specials">Specials</a>
+      <a href="#prices">Prices</a>
       <a href="#visit">Hours &amp; Location</a>
       <a href="#rentals">Apartments</a>
       <a class="btn btn-call" href="tel:+15187477779">Call (518) 747-7779</a>
@@ -312,21 +319,52 @@
             <li>Top lotion brands: Australian Gold, Devoted, Ed Hardy, Pro-Tan</li>
             <li>Staff who'll help you pick the right level</li>
           </ul>
+          <p style="margin-top:1rem;font-weight:700"><a href="#prices">See tanning prices ↓</a></p>
         </div>
       </div>
     </div>
   </section>
 
-  <!-- SPECIALS -->
-  <section id="specials" class="specials">
+  <!-- TANNING PRICES -->
+  <section id="prices">
     <div class="wrap">
-      <h2>This month's specials</h2>
-      <div class="deal-grid">
-        <div class="deal"><span class="big">$50 / month</span><small>Unlimited tanning — one flat monthly rate</small></div>
-        <div class="deal"><span class="big">$10 off</span><small>Any regular-price bottle of lotion</small></div>
-        <div class="deal"><span class="big">Seasonal</span><small>Holiday &amp; Mother's Day specials — ask in store</small></div>
-        <div class="deal"><span class="big">Follow us</span><small>Newest deals post first on Facebook</small></div>
+      <div class="sec-head">
+        <span class="kicker">Tanning Salon</span>
+        <h2>Tanning prices</h2>
+        <p>Everyday prices, straight from the front desk — no membership required.</p>
       </div>
+      <div class="price-grid">
+        <div class="panel panel-pad price-card">
+          <h3>Package A</h3>
+          <p class="pkg-sub">Tropical Rayz bed · sessions up to 20 minutes</p>
+          <div class="price-row"><span>1 visit</span><b>$13</b></div>
+          <div class="price-row"><span>5 visits</span><b>$40</b></div>
+          <div class="price-row"><span>10 visits</span><b>$65</b></div>
+          <div class="price-row"><span>20 visits</span><b>$95</b></div>
+        </div>
+        <div class="panel panel-pad price-card">
+          <h3>Package B</h3>
+          <p class="pkg-sub">All equipment — regular, facial &amp; stand-up beds</p>
+          <div class="price-row"><span>1 visit</span><b>$15</b></div>
+          <div class="price-row"><span>5 visits</span><b>$55</b></div>
+          <div class="price-row"><span>10 visits</span><b>$85</b></div>
+          <div class="price-row"><span>20 visits</span><b>$120</b></div>
+        </div>
+        <div class="panel panel-pad price-card sunny">
+          <h3>Any bed, by time</h3>
+          <p class="pkg-sub">Use of all equipment, consecutive days</p>
+          <div class="price-row"><span>1 week <small>(7 days)</small></span><b>$25</b></div>
+          <div class="price-row"><span>1 month <small>(30 days)</small></span><b>$75</b></div>
+          <div class="price-row"><span>3 months <small>(90 days)</small></span><b>$220</b></div>
+          <div class="price-row"><span>100 minutes</span><b>$75</b></div>
+        </div>
+      </div>
+      <p class="fine-print">
+        Minimum tan time is 3 minutes. Minutes expire 6 months from date of purchase.
+        No holds on tanning packages. Prices do not include tax.
+        Tanning hours: 7am–7pm Mon–Fri, 7am–2pm Sat &amp; Sun.
+        When specials run, they post first on <a href="https://www.facebook.com/p/Bubbles-Sun-100063786570990/" target="_blank" rel="noopener">Facebook</a>.
+      </p>
     </div>
   </section>
 
