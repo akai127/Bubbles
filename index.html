@@ -43,9 +43,7 @@
     {"@type":"OpeningHoursSpecification","dayOfWeek":"Saturday","opens":"07:00","closes":"14:00"},
     {"@type":"OpeningHoursSpecification","dayOfWeek":"Sunday","opens":"07:00","closes":"17:00"}
   ],
-  "areaServed": "Hudson Falls, NY",
-  "isAccessibleForFree": false,
-  "amenityFeature": [{"@type":"LocationFeatureSpecification","name":"Wheelchair accessible","value":true}]
+  "areaServed": "Hudson Falls, NY"
 }
 </script>
 
@@ -301,7 +299,7 @@
           <ul>
             <li>Plenty of washers &amp; high-capacity machines for comforters and big loads</li>
             <li>Fast, hot dryers — get in and out</li>
-            <li>Bright, clean, wheelchair-accessible space</li>
+            <li>Bright, clean, well-kept space</li>
             <li>Soap, supplies &amp; change on site</li>
           </ul>
         </div>
@@ -349,6 +347,7 @@
           <div class="hours-row" data-day="5"><span class="day">Friday</span><span>7:00 am – 7:00 pm</span></div>
           <div class="hours-row" data-day="6"><span class="day">Saturday</span><span>7:00 am – 2:00 pm</span></div>
           <div class="hours-row" data-day="0"><span class="day">Sunday</span><span>7:00 am – 5:00 pm</span></div>
+          <p style="margin:.9rem 0 0;font-size:.88rem;color:var(--ink-soft)">☀️ Tanning closes at 2:00 pm on Saturdays &amp; Sundays — laundry stays open the full day.</p>
           <div style="margin-top:1.2rem;display:flex;gap:.7rem;flex-wrap:wrap">
             <a class="btn btn-call" href="tel:+15187477779">📞 (518) 747-7779</a>
           </div>
@@ -401,6 +400,7 @@
       <p>Mon–Fri · 7am – 7pm</p>
       <p>Saturday · 7am – 2pm</p>
       <p>Sunday · 7am – 5pm</p>
+      <p style="font-size:.85em;opacity:.85">Tanning till 2pm Sat &amp; Sun</p>
     </div>
     <div class="foot-col">
       <h4>Find us</h4>
@@ -449,6 +449,8 @@
     function fmt(x){ var hr=Math.floor(x); var ap=hr>=12?'pm':'am'; var hh=hr%12; if(hh===0)hh=12; return hh+(ap); }
     if (open){
       txt.textContent = 'Open now · until ' + fmt(span[1]);
+      // Sunday: tanning closes at 2pm even though laundry runs to 5pm
+      if (day === 0) txt.textContent += (h < 14) ? ' · tanning until 2pm' : ' · laundry only';
     } else {
       dot.classList.add('closed');
       // find next opening
