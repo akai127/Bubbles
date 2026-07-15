@@ -204,7 +204,9 @@
   .price-card.sunny .price-row b{color:#7a4d00}
   .save-badge{display:inline-block;margin-left:.45rem;font-size:.72rem;font-weight:800;letter-spacing:.02em;background:var(--gold);color:#3a2a00;padding:.12rem .5rem;border-radius:999px;vertical-align:middle}
   .price-row.minutes{margin-top:.6rem;border-top:1px solid rgba(122,77,0,.28);padding-top:.85rem}
-  .fine-print{margin-top:1.4rem;color:var(--ink-soft);font-size:.88rem;max-width:72ch}
+  .fine-print{margin-top:1.4rem;color:var(--ink-soft);font-size:.88rem;max-width:72ch;list-style:none;display:grid;gap:.35rem}
+  .fine-print li{display:flex;gap:.55rem;align-items:baseline}
+  .fine-print li::before{content:"";flex:none;width:.45rem;height:.45rem;border-radius:50%;background:var(--gold);transform:translateY(-1px)}
   .fine-print a{color:var(--lagoon);font-weight:600}
 
   /* hours + location */
@@ -361,12 +363,13 @@
           <div class="price-row minutes"><span>100 minutes</span><b>$75</b></div>
         </div>
       </div>
-      <p class="fine-print">
-        Minimum tan time is 3 minutes. Minutes expire 6 months from date of purchase.
-        No holds on tanning packages. Prices do not include tax.
-        Tanning hours: 7am–7pm Mon–Fri, 7am–2pm Sat &amp; Sun.
-        When specials run, they post first on <a href="https://www.facebook.com/p/Bubbles-Sun-100063786570990/" target="_blank" rel="noopener">Facebook</a>.
-      </p>
+      <ul class="fine-print">
+        <li>Prices do not include tax.</li>
+        <li>Minimum tan time is 3 minutes.</li>
+        <li>Minutes expire 6 months from date of purchase.</li>
+        <li>No holds on tanning packages.</li>
+        <li>When specials run, they post first on <a href="https://www.facebook.com/p/Bubbles-Sun-100063786570990/" target="_blank" rel="noopener">Facebook</a>.</li>
+      </ul>
     </div>
   </section>
 
