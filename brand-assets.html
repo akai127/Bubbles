@@ -8,7 +8,10 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
 <link href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@600;700;800&family=DM+Sans:opsz,wght@9..40,500;9..40,700&display=swap" rel="stylesheet" />
 <style>
-  :root{--aqua:#4FC3D9;--lagoon:#0E6E8C;--gold:#FFB627;--coral:#FF7A59;--pink:#FF2E97;--cloud:#FBFAF6;--ink:#163B45}
+  :root{--aqua:#4FC3D9;--lagoon:#0E6E8C;--gold:#FFB627;--coral:#FF7A59;--pink:#FF2E97;
+    --cloud:#FBFAF6;--ink:#163B45;
+    /* white text on --pink is only 3.45:1; buttons use this instead */
+    --pink-deep:#C4106F}
   *{box-sizing:border-box;margin:0;padding:0}
   body{font-family:"DM Sans",system-ui,sans-serif;background:#eef3f4;color:var(--ink);line-height:1.55;padding:2rem 1rem 4rem}
   .wrap{width:min(900px,94vw);margin-inline:auto}
@@ -19,8 +22,11 @@
   .asset .dim{color:#7089;font-size:.9rem;color:#5b7a82;margin-bottom:.9rem}
   canvas{max-width:100%;height:auto;display:block;border-radius:12px;border:1px solid rgba(22,59,69,.1);background:#f4f7f8}
   .row{display:flex;gap:.7rem;flex-wrap:wrap;margin-top:1rem;align-items:center}
-  button{font-family:"DM Sans";font-weight:700;font-size:.95rem;border:0;cursor:pointer;padding:.7rem 1.2rem;border-radius:999px;background:var(--pink);color:#fff;box-shadow:0 10px 22px -12px rgba(255,46,151,.9);transition:transform .15s}
+  button{font-family:"DM Sans";font-weight:700;font-size:.95rem;border:0;cursor:pointer;padding:.7rem 1.2rem;border-radius:999px;background:var(--pink-deep);color:#fff;box-shadow:0 10px 22px -12px rgba(196,16,111,.9);transition:transform .15s}
   button:hover{transform:translateY(-2px)}
+  :focus-visible{outline:3px solid var(--lagoon);outline-offset:2px;border-radius:6px;box-shadow:0 0 0 6px rgba(255,255,255,.92)}
+  .skip-link{position:absolute;left:-9999px;top:0;z-index:100;background:var(--lagoon);color:#fff;font-weight:700;padding:.7rem 1.1rem;border-radius:0 0 10px 0;text-decoration:none}
+  .skip-link:focus{left:0}
   button.alt{background:var(--lagoon);box-shadow:0 10px 22px -12px rgba(14,110,140,.9)}
   .how{background:#fff;border-radius:18px;padding:1.4rem 1.6rem;border:1px dashed rgba(22,59,69,.25)}
   .how h2{font-family:"Baloo 2";color:var(--lagoon);margin-bottom:.5rem}
@@ -30,7 +36,10 @@
 </style>
 </head>
 <body>
-<div class="wrap">
+
+<a class="skip-link" href="#main">Skip to main content</a>
+
+<main id="main" tabindex="-1" class="wrap">
   <h1>Bubbles &amp; Sun — Brand Assets</h1>
   <p class="lede">Pink bubble + orange sun, the way it started. Click <b>Download</b> under each one to save a sharp PNG. Sizes are already set for Facebook.</p>
 
@@ -64,7 +73,7 @@
       <li>Want different wording or a tweak to the colors/layout? Tell me and I'll regenerate.</li>
     </ol>
   </div>
-</div>
+</main>
 
 <script>
 const C={aqua:'#4FC3D9',lagoon:'#0E6E8C',gold:'#FFB627',coral:'#FF7A59',pink:'#FF2E97',cloud:'#FBFAF6',ink:'#163B45'};

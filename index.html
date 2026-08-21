@@ -55,6 +55,12 @@
     --gold:#FFB627;
     --coral:#FF7A59;
     --pink:#FF2E97;       /* the landmark: the big hot-pink building on Main St */
+    /* AA-safe variants — the brand colours above stay for fills/large display type,
+       these carry small text and white-on-colour buttons (WCAG 2.1 AA, 4.5:1) */
+    --gold-ink:#8A5A00;   /* gold as TEXT on a light background — 5.67:1 on --cloud */
+    --aqua-lite:#B7ECF7;  /* aqua as TEXT on --lagoon — 4.51:1 */
+    --coral-deep:#C94322; /* coral BUTTON fill under white text — 4.87:1 */
+    --pink-deep:#C4106F;  /* pink BUTTON/chip fill under white text — 5.75:1 */
     --cloud:#FBFAF6;
     --ink:#163B45;
     --ink-soft:#4a6b73;
@@ -92,10 +98,14 @@
     background:radial-gradient(circle at 32% 28%, #fff 0 12%, var(--aqua) 45%, var(--lagoon) 100%);
     box-shadow:0 0 0 3px rgba(255,182,39,.4), 0 0 0 5px rgba(255,46,151,.3);
   }
-  .brand b{color:var(--gold)}
+  .brand b{color:var(--gold-ink)}
   .nav-links{display:flex;align-items:center;gap:1.4rem}
   .nav-links a{font-weight:500;text-decoration:none;font-size:.96rem;color:var(--ink-soft)}
   .nav-links a:hover{color:var(--lagoon)}
+  /* .nav-links a would otherwise repaint the call button's label --ink-soft,
+     which is only 3.29:1 on gold. Keep the button's own dark brown. */
+  .nav-links a.btn-call{color:#3a2a00}
+  .nav-links a.btn-call:hover{color:#3a2a00}
   .btn{
     display:inline-flex;align-items:center;gap:.5rem;
     font-family:"DM Sans";font-weight:700;font-size:.96rem;
@@ -106,15 +116,15 @@
   .btn-call:hover{transform:translateY(-2px)}
   .btn-ghost{background:transparent;color:var(--lagoon);border:1.5px solid var(--lagoon)}
   .btn-ghost:hover{background:var(--lagoon);color:#fff}
-  .btn-coral{background:var(--coral);color:#fff;box-shadow:0 10px 22px -10px rgba(255,122,89,.9)}
+  .btn-coral{background:var(--coral-deep);color:#fff;box-shadow:0 10px 22px -10px rgba(201,67,34,.9)}
   .btn-coral:hover{transform:translateY(-2px)}
-  .btn-pink{background:var(--pink);color:#fff;box-shadow:0 10px 22px -10px rgba(255,46,151,.9)}
+  .btn-pink{background:var(--pink-deep);color:#fff;box-shadow:0 10px 22px -10px rgba(196,16,111,.9)}
   .btn-pink:hover{transform:translateY(-2px)}
   /* landmark cue — ties the brand to the physical hot-pink building */
   .landmark{
     display:inline-flex;align-items:center;gap:.55rem;font-weight:700;font-size:.95rem;
-    background:var(--pink);color:#fff;padding:.5rem 1rem;border-radius:999px;
-    box-shadow:0 10px 24px -12px rgba(255,46,151,.95)
+    background:var(--pink-deep);color:#fff;padding:.5rem 1rem;border-radius:999px;
+    box-shadow:0 10px 24px -12px rgba(196,16,111,.95)
   }
   .landmark .swatch{width:.95rem;height:.95rem;border-radius:4px;background:#fff;opacity:.95;flex:none}
   @media(max-width:760px){.nav-links a:not(.btn){display:none}}
@@ -123,6 +133,17 @@
   .hero{
     position:relative;overflow:hidden;color:#fff;
     background:linear-gradient(160deg, var(--lagoon) 0%, var(--aqua) 42%, #ffd27a 82%, var(--gold) 100%);
+  }
+  /* Contrast scrim. Without it, white hero text runs 1.4:1 over the amber end of
+     the gradient and 2.1:1 over the aqua. At 55% this holds >=4.6:1 everywhere
+     the copy sits, and the sun/bubbles still read through it. */
+  .hero::after{
+    content:"";position:absolute;inset:0;z-index:1;pointer-events:none;
+    background:linear-gradient(95deg,
+      rgba(6,45,58,.62) 0%,
+      rgba(6,45,58,.55) 62%,
+      rgba(6,45,58,.38) 88%,
+      rgba(6,45,58,.30) 100%);
   }
   .sun{
     position:absolute;right:-6%;top:-12%;width:46vmax;height:46vmax;border-radius:50%;pointer-events:none;
@@ -164,12 +185,12 @@
   }
   .live-dot{width:.62rem;height:.62rem;border-radius:50%;background:#27c06b;box-shadow:0 0 0 4px rgba(39,192,107,.25)}
   .live-dot.closed{background:var(--coral);box-shadow:0 0 0 4px rgba(255,122,89,.25)}
-  .wave{display:block;width:100%;height:auto;margin-top:-1px}
+  .wave{display:block;width:100%;height:auto;margin-top:-1px;position:relative;z-index:2}
 
   /* ---------- sections ---------- */
   section{padding:clamp(3rem,7vw,5.5rem) 0}
   .sec-head{max-width:44ch;margin-bottom:2.2rem}
-  .sec-head .kicker{color:var(--gold);font-weight:700;letter-spacing:.12em;text-transform:uppercase;font-size:.8rem}
+  .sec-head .kicker{color:var(--gold-ink);font-weight:700;letter-spacing:.12em;text-transform:uppercase;font-size:.8rem}
   .sec-head h2{font-size:clamp(1.9rem,4.5vw,2.9rem);font-weight:700;margin:.35rem 0 .5rem;color:var(--lagoon)}
   .sec-head p{color:var(--ink-soft);font-size:1.05rem}
 
@@ -184,7 +205,7 @@
   .card.tan{background:linear-gradient(160deg,#fff3dc,#ffe3b3);color:#7a4d00}
   .card .icn{font-size:2rem;margin-bottom:.6rem}
   .card h3{font-size:1.5rem;font-weight:700;margin-bottom:.3rem}
-  .card p.sub{font-weight:500;opacity:.85;margin-bottom:1rem}
+  .card p.sub{font-weight:500;margin-bottom:1rem}
   .card ul{list-style:none;display:grid;gap:.55rem}
   .card li{display:flex;gap:.6rem;align-items:flex-start;font-weight:500;font-size:1rem}
   .card li::before{content:"";flex:none;width:.7rem;height:.7rem;margin-top:.45rem;border-radius:50%;background:currentColor;opacity:.5}
@@ -199,7 +220,7 @@
   .price-row b{font-family:"Baloo 2";font-size:1.15rem;color:var(--lagoon);white-space:nowrap}
   .price-card.sunny{background:linear-gradient(160deg,#fff3dc,#ffe3b3);border:0}
   .price-card.sunny h3{color:#7a4d00}
-  .price-card.sunny .pkg-sub{color:#7a4d00;opacity:.8}
+  .price-card.sunny .pkg-sub{color:#7a4d00;opacity:.9}
   .price-card.sunny .price-row{border-bottom-color:rgba(122,77,0,.2)}
   .price-card.sunny .price-row b{color:#7a4d00}
   .save-badge{display:inline-block;margin-left:.45rem;font-size:.72rem;font-weight:800;letter-spacing:.02em;background:var(--gold);color:#3a2a00;padding:.12rem .5rem;border-radius:999px;vertical-align:middle}
@@ -227,24 +248,37 @@
   .rentals{background:var(--lagoon);color:#fff}
   .rentals .wrap{display:grid;grid-template-columns:1.2fr .8fr;gap:2rem;align-items:center}
   @media(max-width:820px){.rentals .wrap{grid-template-columns:1fr}}
-  .rentals .kicker{color:var(--aqua);font-weight:700;letter-spacing:.12em;text-transform:uppercase;font-size:.8rem}
+  .rentals .kicker{color:var(--aqua-lite);font-weight:700;letter-spacing:.12em;text-transform:uppercase;font-size:.8rem}
   .rentals h2{font-size:clamp(1.7rem,4vw,2.6rem);font-weight:700;margin:.4rem 0 .6rem}
   .rentals p{color:rgba(255,255,255,.85);max-width:46ch}
+  .tnt-card p{color:#fff}
   .tnt-card{background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.18);border-radius:var(--radius);padding:1.6rem}
   .tnt-card .tnt-name{font-family:"Baloo 2";font-weight:800;font-size:1.4rem;color:#fff;margin-bottom:.3rem}
-  .tnt-card .tnt-name span{color:var(--gold)}
+  .tnt-card .tnt-name span{color:#ffd27a}   /* --gold is 2.81:1 on the lightened card */
 
   /* footer */
   footer{background:#0b2f38;color:rgba(255,255,255,.8);padding:2.6rem 0 2rem}
   .foot-grid{display:flex;flex-wrap:wrap;justify-content:space-between;gap:1.6rem}
-  footer h4{font-family:"Baloo 2";color:#fff;font-size:1.3rem;margin-bottom:.4rem}
-  footer h4 span{color:var(--gold)}
+  footer h3{font-family:"Baloo 2";color:#fff;font-size:1.3rem;margin-bottom:.4rem}
+  footer h3 span{color:var(--gold)}
   footer a{color:rgba(255,255,255,.8);text-decoration:none}
   footer a:hover{color:#fff}
   .foot-col p{margin:.2rem 0;font-size:.95rem}
   .foot-bottom{margin-top:1.8rem;padding-top:1.2rem;border-top:1px solid rgba(255,255,255,.12);font-size:.85rem;opacity:.7}
 
-  :focus-visible{outline:3px solid var(--gold);outline-offset:2px;border-radius:6px}
+  :focus-visible{
+    outline:3px solid var(--lagoon);
+    outline-offset:2px;
+    border-radius:6px;
+    box-shadow:0 0 0 6px rgba(255,255,255,.92);
+  }
+  /* skip link — first tab stop, hidden until focused */
+  .skip-link{
+    position:absolute;left:-9999px;top:0;z-index:100;
+    background:var(--lagoon);color:#fff;font-weight:700;
+    padding:.7rem 1.1rem;border-radius:0 0 10px 0;text-decoration:none;
+  }
+  .skip-link:focus{left:0}
 
   @media (prefers-reduced-motion: reduce){
     .bubble{animation:none;display:none}
@@ -255,9 +289,11 @@
 </head>
 <body>
 
+<a class="skip-link" href="#main">Skip to main content</a>
+
 <header>
   <nav class="wrap nav">
-    <a class="brand" href="#top"><span class="dot" aria-hidden="true"></span>Bubbles <b>&amp;</b> Sun</a>
+    <a class="brand" href="#main"><span class="dot" aria-hidden="true"></span>Bubbles <b>&amp;</b> Sun</a>
     <div class="nav-links">
       <a href="#services">Services</a>
       <a href="#prices">Prices</a>
@@ -268,7 +304,7 @@
   </nav>
 </header>
 
-<main id="top">
+<main id="main" tabindex="-1">
 
   <!-- HERO -->
   <section class="hero" style="padding:0">
@@ -398,7 +434,7 @@
         <div class="panel map-wrap">
           <div class="panel-pad" style="padding-bottom:.4rem">
             <div class="pin"><span class="ico" aria-hidden="true">📍</span><span>279 Main St, Hudson Falls, NY 12839</span></div>
-            <div class="pin" style="margin-bottom:.4rem;color:var(--pink);font-weight:700"><span class="ico" aria-hidden="true">🩷</span><span>Look for the big hot-pink building — you can't miss it.</span></div>
+            <div class="pin" style="margin-bottom:.4rem;color:var(--pink-deep);font-weight:700"><span class="ico" aria-hidden="true">🩷</span><span>Look for the big hot-pink building — you can't miss it.</span></div>
           </div>
           <iframe
             class="map-frame"
@@ -422,7 +458,7 @@
       <div class="tnt-card">
         <div class="tnt-name">TNT <span>Rentals</span></div>
         <p style="margin-bottom:1rem">Apartments above and around the Main Street block.</p>
-        <p style="font-size:.95rem;opacity:.85">Apply and browse vacancies online through TurboTenant, or call to ask what's open.</p>
+        <p style="font-size:.95rem">Apply and browse vacancies online through TurboTenant, or call to ask what's open.</p>
         <a class="btn btn-call" style="margin-top:1.2rem" href="tel:+15187477779">📞 Ask about rentals</a>
       </div>
     </div>
@@ -433,23 +469,29 @@
 <footer>
   <div class="wrap foot-grid">
     <div class="foot-col">
-      <h4>Bubbles <span>&amp;</span> Sun</h4>
+      <h3>Bubbles <span>&amp;</span> Sun</h3>
       <p>Laundromat &amp; tanning salon</p>
       <p>279 Main St, Hudson Falls, NY 12839</p>
       <p><a href="tel:+15187477779">(518) 747-7779</a></p>
     </div>
     <div class="foot-col">
-      <h4>Hours</h4>
+      <h3>Hours</h3>
       <p>Mon–Fri · 7am – 7pm</p>
       <p>Saturday · 7am – 2pm</p>
       <p>Sunday · 7am – 5pm</p>
       <p style="font-size:.85em;opacity:.85">Tanning till 2pm Sat &amp; Sun</p>
     </div>
     <div class="foot-col">
-      <h4>Find us</h4>
+      <h3>Find us</h3>
       <p><a href="https://www.facebook.com/p/Bubbles-Sun-100063786570990/" target="_blank" rel="noopener">Facebook →</a></p>
       <p><a href="https://www.google.com/maps/dir/?api=1&destination=279+Main+St+Hudson+Falls+NY+12839" target="_blank" rel="noopener">Directions →</a></p>
       <p><a href="#rentals">Apartments (TNT Rentals) →</a></p>
+    </div>
+    <div class="foot-col">
+      <h3>The fine print</h3>
+      <p><a href="legal.html#privacy">Privacy Policy</a></p>
+      <p><a href="legal.html#terms">Terms of Use</a></p>
+      <p><a href="legal.html#accessibility">Accessibility</a></p>
     </div>
   </div>
   <div class="wrap foot-bottom">
