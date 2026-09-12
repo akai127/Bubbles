@@ -266,6 +266,16 @@
   .foot-col p{margin:.2rem 0;font-size:.95rem}
   .foot-bottom{margin-top:1.8rem;padding-top:1.2rem;border-top:1px solid rgba(255,255,255,.12);font-size:.85rem;opacity:.7}
 
+  /* ---------- flash-sale banner (date-gated — the script at the bottom shows it
+     only between the dates set there; after that it stays hidden with no edits) ---------- */
+  .flash-banner{
+    background:var(--pink-deep);color:#fff;text-align:center;
+    padding:.6rem 1.1rem;font-weight:500;font-size:.95rem;line-height:1.45;
+  }
+  .flash-banner b{font-family:"Baloo 2";font-weight:800;letter-spacing:.01em}
+  .flash-banner a{color:#FFD9EC;font-weight:700;white-space:nowrap}
+  .flash-banner a:hover{color:#fff}
+
   :focus-visible{
     outline:3px solid var(--lagoon);
     outline-offset:2px;
@@ -290,6 +300,13 @@
 <body>
 
 <a class="skip-link" href="#main">Skip to main content</a>
+
+<!-- FLASH SALE banner — hidden by default; the date-gate script at the bottom of the
+     page shows it Sept 10–20, 2026 and it disappears on its own after the 20th.
+     For the next sale: update this copy and the start/end dates in that script. -->
+<div class="flash-banner" id="flashBanner" role="region" aria-label="Current special" hidden>
+  ☀️ <b>FLASH SALE · SEPT 10–20 ONLY:</b> 6 months of tanning, any bed — <b>$330</b> + tan tax (that's $55/month). <a href="tel:+15187477779">Call (518) 747-7779</a> or stop in to lock it in.
+</div>
 
 <header>
   <nav class="wrap nav">
@@ -518,6 +535,19 @@
       b.style.animationDuration = dur + 's';
       b.style.animationDelay = delay + 's';
       field.appendChild(b);
+    }
+  })();
+
+  // ---- flash-sale banner date gate (visitor's local time) ----
+  // Visible from Sept 10, 2026 through the end of Sept 20, 2026; hidden otherwise.
+  // Months are 0-based: 8 = September.
+  (function(){
+    var start = new Date(2026, 8, 10);   // Sept 10, 12:00 am
+    var end   = new Date(2026, 8, 21);   // first moment of Sept 21 — banner gone from here on
+    var now = new Date();
+    if (now >= start && now < end){
+      var banner = document.getElementById('flashBanner');
+      if (banner) banner.hidden = false;
     }
   })();
 
